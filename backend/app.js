@@ -26,7 +26,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/api/auth', authRoutes);
-// app.use('/api/admin', adminRoutes);
+app.use('/api/admin', adminRoutes);
 // app.use('/api/buses', busRoutes);
 // app.use('/api/tickets', ticketRoutes);
 

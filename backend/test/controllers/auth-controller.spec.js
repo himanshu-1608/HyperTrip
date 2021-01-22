@@ -15,7 +15,7 @@ mongoose
   });
 
 const next = (error) => {
-  console.log('Error in next:', error);
+  // console.log('Error in next:', error);
 };
 
 const commonReq = {
