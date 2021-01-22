@@ -2,13 +2,18 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const path = require('path');
+
+const authRoutes = require('./routes/auth-routes');
+const adminRoutes = require('./routes/admin-routes');
+const busRoutes = require('./routes/bus-routes');
+const ticketRoutes = require('./routes/ticket-routes');
 const { mongoUrl } = require('./config');
 
 const HttpError = require('./models/http-error');
 
 const app = express();
-var a = 'hi';
-// app.use(bodyParser.json());
+
+app.use(bodyParser.json());
 
 app.use('/uploads/images', express.static(path.join('uploads', 'images')));
 
@@ -22,13 +27,14 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/test', (req, res) => {
-  res.json({ testVal: 5 });
-});
+// app.use('/api/auth', authRoutes);
+// app.use('/api/admin', adminRoutes);
+// app.use('/api/buses', busRoutes);
+// app.use('/api/tickets', ticketRoutes);
 
 app.use((req, res, next) => {
   const error = new HttpError('Could not find this route.', 404);
-  throw error;
+  next(error);
 });
 
 app.use((error, req, res, next) => {
@@ -41,7 +47,11 @@ app.use((error, req, res, next) => {
 
 if (require.main === module) {
   mongoose
-    .connect(mongoUrl)
+    .connect(mongoUrl, {
+      useCreateIndex: true,
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    })
     .then(() => {
       console.log('DB connection successful!');
     })
