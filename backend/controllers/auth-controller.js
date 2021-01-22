@@ -1,4 +1,4 @@
-const { findUserByEmail, createNewUser } = require('../utils/db-utils');
+const { findAdminByEmail, createNewAdmin } = require('../utils/db-utils');
 const {
   hashPassword,
   createToken,
@@ -7,10 +7,10 @@ const {
 const HttpError = require('../models/http-error');
 
 const signup = async (req, res, next) => {
-  const { name, email, password } = req.body;
-  let existingUser;
+  const { email, password } = req.body;
+  let existingAdmin;
   try {
-    existingUser = await findUserByEmail(email);
+    existingAdmin = await findAdminByEmail(email);
   } catch (err) {
     const error = new HttpError(
       'Signing up failed, please try again later.',
@@ -18,63 +18,40 @@ const signup = async (req, res, next) => {
     );
     return next(error);
   }
-
-  if (existingUser) {
+  if (existingAdmin) {
     const error = new HttpError(
-      'User exists already, please login instead.',
+      'Admin exists already, please assign another email instead.',
       422
     );
     return next(error);
   }
 
-  let hashedPassword;
+  let hashedPassword, createdAdmin, token;
   try {
     hashedPassword = await hashPassword(password);
+    createdAdmin = createNewAdmin(email, hashedPassword);
+    await createdAdmin.save();
+    token = await createToken(createdAdmin.id, createdAdmin.email);
   } catch (err) {
     const error = new HttpError(
-      'Could not create user, please try again.',
+      'Could not create admin, please try again.',
       500
     );
     return next(error);
   }
-
-  const createdUser = await createNewUser(name, email, hashedPassword);
-
-  try {
-    await createdUser.save();
-  } catch (err) {
-    const error = new HttpError(
-      'Signing up failed, please try again later.',
-      500
-    );
-    return next(error);
-  }
-
-  let token;
-  try {
-    token = await createToken(createdUser.id, createdUser.email);
-  } catch (err) {
-    const error = new HttpError(
-      'Signing up failed, please try again later.',
-      500
-    );
-    return next(error);
-  }
-
   res.status(201).json({
-    userId: createdUser.id,
-    email: createdUser.email,
+    adminId: createdAdmin.id,
+    email: createdAdmin.email,
     token: token,
-    userName: name,
   });
 };
 
 const login = async (req, res, next) => {
   const { email, password } = req.body;
 
-  let existingUser;
+  let existingAdmin;
   try {
-    existingUser = await findUserByEmail(email);
+    existingAdmin = await findAdminByEmail(email);
   } catch (err) {
     const error = new HttpError(
       'Logging in failed, please try again later.',
@@ -83,7 +60,7 @@ const login = async (req, res, next) => {
     return next(error);
   }
 
-  if (!existingUser) {
+  if (!existingAdmin) {
     const error = new HttpError(
       'Invalid credentials, could not log you in.',
       403
@@ -93,7 +70,7 @@ const login = async (req, res, next) => {
 
   let isValidPassword;
   try {
-    isValidPassword = await checkPassword(password, existingUser.password);
+    isValidPassword = await checkPassword(password, existingAdmin.password);
   } catch (err) {
     const error = new HttpError(
       'Logging in failed, please try again later.',
@@ -112,7 +89,7 @@ const login = async (req, res, next) => {
 
   let token;
   try {
-    token = createToken(existingUser.id, existingUser.email);
+    token = createToken(existingAdmin.id, existingAdmin.email);
   } catch (err) {
     const error = new HttpError(
       'Logging in failed, please try again later.',
@@ -122,10 +99,9 @@ const login = async (req, res, next) => {
   }
 
   res.status(200).json({
-    userId: existingUser.id,
-    email: existingUser.email,
+    adminId: existingAdmin.id,
+    email: existingAdmin.email,
     token: token,
-    userName: existingUser.name,
   });
 };
 

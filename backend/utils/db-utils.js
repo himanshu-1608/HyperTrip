@@ -1,51 +1,34 @@
-const User = require('../models/user');
+const Admin = require('../models/admin');
 const HttpError = require('../models/http-error');
 
-const createNewUser = async (name, email, password) => {
-  let user;
-  user = User({
-    name,
+const createNewAdmin = (email, password) => {
+  let admin;
+  admin = new Admin({
     email,
     password,
-    imageUrl: 'uploads/images/new-user.png',
-    tickets: [],
   });
-  return user;
+  return admin;
 };
 
-const findUserById = async (userId) => {
-  let user;
-  user = await User.findById(userId);
-  if (!user) {
+const findAdminById = async (adminId) => {
+  let admin;
+  admin = await Admin.findById(adminId);
+  if (!admin) {
     const error = new HttpError(
-      'Could not find user for the provided id.',
+      'Could not find admin for the provided id.',
       404
     );
     throw error;
   }
-  return user;
+  return admin;
 };
 
-const findUserByName = async (userName) => {
-  let user;
-  user = await User.findOne({ name: userName });
-  if (!user) {
-    const error = new HttpError(
-      'Could not find user for the provided id.',
-      404
-    );
-    throw error;
-  }
-  return user;
+const findAdminByEmail = async (adminMail) => {
+  let admin;
+  admin = await Admin.findOne({ email: adminMail });
+  return admin;
 };
 
-const findUserByEmail = async (userMail) => {
-  let user;
-  user = await User.findOne({ email: userMail });
-  return user;
-};
-
-exports.createNewUser = createNewUser;
-exports.findUserById = findUserById;
-exports.findUserByName = findUserByName;
-exports.findUserByEmail = findUserByEmail;
+exports.createNewAdmin = createNewAdmin;
+exports.findAdminById = findAdminById;
+exports.findAdminByEmail = findAdminByEmail;

@@ -15,8 +15,6 @@ const app = express();
 
 app.use(bodyParser.json());
 
-app.use('/uploads/images', express.static(path.join('uploads', 'images')));
-
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader(
@@ -27,7 +25,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// app.use('/api/auth', authRoutes);
+app.use('/api/auth', authRoutes);
 // app.use('/api/admin', adminRoutes);
 // app.use('/api/buses', busRoutes);
 // app.use('/api/tickets', ticketRoutes);
