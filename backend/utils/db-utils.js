@@ -58,9 +58,19 @@ const removeBusAndTickets = async (busId) => {
   await bus.remove();
 };
 
+const findTicketById = async (ticketId) => {
+  let ticket;
+  ticket = await Ticket.findById(ticketId);
+  if (!ticket) {
+    throw new HttpError('Ticket Not Found', 404);
+  }
+  return ticket;
+};
+
 exports.createNewAdmin = createNewAdmin;
 exports.findAdminById = findAdminById;
 exports.findAdminByEmail = findAdminByEmail;
 exports.createNewBus = createNewBus;
 exports.findBusById = findBusById;
 exports.removeBusAndTickets = removeBusAndTickets;
+exports.findTicketById = findTicketById;
