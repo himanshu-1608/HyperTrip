@@ -1,8 +1,10 @@
 const assert = require('assert');
 const mongoose = require('mongoose');
+const { v4: uuidv4 } = require('uuid');
+const expect = require('chai').expect;
+const should = require('chai').should();
 const { mongoDevUrl } = require('./../../config');
 const { signup, login } = require('../../controllers/auth-controller');
-const { v4: uuidv4 } = require('uuid');
 
 mongoose
   .connect(mongoDevUrl, {
