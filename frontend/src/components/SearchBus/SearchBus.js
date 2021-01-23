@@ -63,7 +63,6 @@ const SearchBus = (props) => {
   const getBusesHandler = async(event) => {
     event.preventDefault();
     setProgress(true);
-    console.log(src,',' ,dest);
     if(src.trim()==='') {
       setSrcError(true);
       setSrcMessage('Please choose one of the source provided');
@@ -97,7 +96,6 @@ const SearchBus = (props) => {
     if(isHttpError) {
       setBuses();
     } else {
-      console.log(responseData.buses);
       setBuses(responseData.buses);
     }
     setProgress(false);

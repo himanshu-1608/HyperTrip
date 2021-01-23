@@ -14,7 +14,7 @@ const BusItem = (props) => {
                     Bus Number: {props.bus_no} <br />
                     Departs from: {props.bus_src} <br />
                     Departure Date: {props.bus_time.getDate()}/
-                    {props.bus_time.getMonth()+1}/
+                    {''+props.bus_time.getMonth()+1}/
                     {props.bus_time.getFullYear()} <br />
                     Depareture Time: {props.bus_time.getHours()}:
                     {props.bus_time.getMinutes()}:

@@ -31,9 +31,9 @@ const findAdminByEmail = async (adminMail) => {
   return admin;
 };
 
-const createNewBus = (name, bus_no, src, dest, bus_time) => {
+const createNewBus = (name, bus_no, src, dest, src_time, dest_time) => {
   let bus;
-  bus = new Bus({ name, bus_no, src, dest, bus_time, tickets: [] });
+  bus = new Bus({ name, bus_no, src, dest, src_time, dest_time, tickets: [] });
   return bus;
 };
 

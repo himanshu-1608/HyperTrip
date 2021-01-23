@@ -1,13 +1,14 @@
-import {useState} from 'react';
-
 const BASE_URL = 'http://localhost:5000/api';
 
 const httpReq = async (url, method='GET', headers={}, body={}) => {
-    const isHttpError = false;
-    let response, responseData;
+    let isHttpError = false,response, responseData;
     
     try {
-        response = await fetch(BASE_URL+url,{method: method,headers: headers,body: body});
+        if(method==='GET') {
+            response = await fetch(BASE_URL+url,{method: method,headers: headers});
+        } else {
+            response = await fetch(BASE_URL+url,{method: method,headers: headers,body: body});
+        }
         if(response.ok) {
             responseData = await response.json();
         } else {
