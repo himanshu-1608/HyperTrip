@@ -8,19 +8,10 @@ import {
 import './App.css';
 import SideNavigation from './components/SideNavigation/SideNavigation';
 import SearchBus from './components/SearchBus/SearchBus';
-import AuthContext from './context/auth-context';
+import BusDetail from './components/BusDetail/BusDetail';
 
 const App = () => {
   return (
-    // <AuthContext.Provider
-    //   value={{
-    //     isLoggedIn: isLoggedIn,
-    //     login: login,
-    //     logout: logout,
-    //     token: token,
-    //     userName: userName,
-    //   }}
-    // >
     <Router>
       <div className='App'>
         <div style={{ display: 'flex' }}>
@@ -30,14 +21,16 @@ const App = () => {
               <SearchBus />
             </Route>
             <Route path='/ticketStatus' exact>
-              <div className='white-text'>ticketstatus</div>
+              <SearchBus />
+            </Route>
+            <Route path='/buses/:busId' exact>
+              <BusDetail />
             </Route>
             <Redirect to='/' />
           </Switch>
         </div>
       </div>
     </Router>
-    // </AuthContext.Provider>
   );
 };
 

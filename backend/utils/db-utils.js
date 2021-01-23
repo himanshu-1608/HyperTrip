@@ -41,13 +41,18 @@ const findBusById = async (busId) => {
   let bus;
   bus = await Bus.findById(busId);
   if (!bus) {
-    const error = new HttpError(
-      'Could not find the bus for the provided id.',
-      404
-    );
-    throw error;
+    throw new HttpError('Could not find the bus for the provided id.', 404);
   }
   return bus;
+};
+
+const findBuses = async (src, dest) => {
+  let buses;
+  buses = await Bus.find({ src: src, dest: dest });
+  if (!buses) {
+    throw new HttpError('Could not find the bus for the provided id.', 404);
+  }
+  return buses;
 };
 
 const removeBusAndTickets = async (busId) => {
@@ -72,5 +77,6 @@ exports.findAdminById = findAdminById;
 exports.findAdminByEmail = findAdminByEmail;
 exports.createNewBus = createNewBus;
 exports.findBusById = findBusById;
+exports.findBuses = findBuses;
 exports.removeBusAndTickets = removeBusAndTickets;
 exports.findTicketById = findTicketById;
