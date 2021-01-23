@@ -1,6 +1,14 @@
 .search-bus {
   height: 100vh;
+  overflow: auto;
   width: 80%;
-  color: aliceblue;
-  background-image: linear-gradient(to right, #000, #014373);
+  color: darkblue;
+}
+
+.search-field {
+  margin: 50px 0px;
+}
+
+.location-wrapper {
+  margin: 50px 70px 50px 200px;
 }

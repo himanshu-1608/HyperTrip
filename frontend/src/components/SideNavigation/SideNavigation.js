@@ -6,12 +6,12 @@ import './SideNavigation.css';
 const SideNavigation = (props) => {
   return (
     <div className='side-navigation'>
-      <div className='center-align app-header'>
-        <h2>
+      <div className='app-header'>
+        <h1>
           <strong>Hyper Book</strong>
-        </h2>
-        <div>Buy tickets, watch ticket status, search buses</div>
-        <h6>JUST FROM ONE PLACE !!!</h6>
+        </h1>
+        <div>Buy tickets <br/>Watch ticket status<br />Search buses</div>
+        <h5>JUST FROM ONE PLACE !!!</h5>
       </div>
       <NavLink
         activeClassName='active-nav'
