@@ -8,37 +8,21 @@ const HttpError = require('../models/http-error');
 
 const signup = async (req, res, next) => {
   const { email, password } = req.body;
-  let existingAdmin;
+  let existingAdmin, hashedPassword, createdAdmin, token;
   try {
     existingAdmin = await findAdminByEmail(email);
-  } catch (err) {
-    const error = new HttpError(
-      'Signing up failed, please try again later.',
-      500
-    );
-    return next(error);
-  }
-  if (existingAdmin) {
-    const error = new HttpError(
-      'Admin exists already, please assign another email instead.',
-      422
-    );
-    return next(error);
-  }
-
-  let hashedPassword, createdAdmin, token;
-  try {
+    if (existingAdmin) throw new HttpError('Admin exists already', 422);
     hashedPassword = await hashPassword(password);
     createdAdmin = createNewAdmin(email, hashedPassword);
     await createdAdmin.save();
     token = await createToken(createdAdmin.id, createdAdmin.email);
   } catch (err) {
-    const error = new HttpError(
-      'Could not create admin, please try again.',
-      500
-    );
-    return next(error);
+    if (err.code) {
+      return next(err);
+    }
+    return next(new HttpError('Signing up failed, please try again', 500));
   }
+
   res.status(201).json({
     adminId: createdAdmin.id,
     email: createdAdmin.email,
@@ -49,53 +33,18 @@ const signup = async (req, res, next) => {
 const login = async (req, res, next) => {
   const { email, password } = req.body;
 
-  let existingAdmin;
+  let existingAdmin, isValidPassword, token;
   try {
     existingAdmin = await findAdminByEmail(email);
-  } catch (err) {
-    const error = new HttpError(
-      'Logging in failed, please try again later.',
-      500
-    );
-    return next(error);
-  }
-
-  if (!existingAdmin) {
-    const error = new HttpError(
-      'Invalid credentials, could not log you in.',
-      403
-    );
-    return next(error);
-  }
-
-  let isValidPassword;
-  try {
+    if (!existingAdmin) throw new HttpError('Invalid credentials', 403);
     isValidPassword = await checkPassword(password, existingAdmin.password);
-  } catch (err) {
-    const error = new HttpError(
-      'Logging in failed, please try again later.',
-      500
-    );
-    return next(error);
-  }
-
-  if (!isValidPassword) {
-    const error = new HttpError(
-      'Invalid credentials, could not log you in.',
-      403
-    );
-    return next(error);
-  }
-
-  let token;
-  try {
+    if (!isValidPassword) throw new HttpError('Invalid credentials', 403);
     token = createToken(existingAdmin.id, existingAdmin.email);
   } catch (err) {
-    const error = new HttpError(
-      'Logging in failed, please try again later.',
-      500
-    );
-    return next(error);
+    if (err.code) {
+      return next(err);
+    }
+    return next(new HttpError('Logging in failed, please try again.', 500));
   }
 
   res.status(200).json({
