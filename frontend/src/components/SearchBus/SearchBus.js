@@ -107,7 +107,7 @@ const SearchBus = (props) => {
     <div className='search-bus'>
       <Container maxWidth="sm">
         <Typography variant="h2" style={{textAlign: 'center'}} gutterBottom>
-          Book Tickets
+          Search Buses
         </Typography>
       </Container>
       <Container maxWidth="sm">
