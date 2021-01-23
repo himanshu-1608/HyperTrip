@@ -7,7 +7,8 @@ const busSchema = new Schema({
   bus_no: { type: String, required: true },
   src: { type: String, required: true },
   dest: { type: String, required: true },
-  bus_time: { type: Date, required: true },
+  src_time: { type: Date, required: true },
+  dest_time: { type: Date, required: true },
   tickets: [{ type: mongoose.Types.ObjectId, ref: 'Ticket' }],
 });
 

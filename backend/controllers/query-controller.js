@@ -21,11 +21,7 @@ const getBuses = async (req, res, next) => {
     if (err.code) {
       return next(err);
     }
-    const error = new HttpError(
-      'New bus creation failed, please try again later.',
-      500
-    );
-    return next(error);
+    return next(new HttpError('Cannot find buses on this route.', 500));
   }
   res.status(200).json({ buses: buses });
 };
@@ -39,11 +35,7 @@ const getBusById = async (req, res, next) => {
     if (err.code) {
       return next(err);
     }
-    const error = new HttpError(
-      'New bus creation failed, please try again later.',
-      500
-    );
-    return next(error);
+    return next(new HttpError('Cannot find bus for provided id.', 500));
   }
   res.status(200).json({ bus: bus });
 };

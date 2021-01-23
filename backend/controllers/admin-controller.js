@@ -2,10 +2,10 @@ const HttpError = require('../models/http-error');
 const { createNewBus, removeBusAndTickets } = require('../utils/db-utils');
 
 const addBus = async (req, res, next) => {
-  const { name, bus_no, src, dest, bus_time } = req.body;
+  const { name, bus_no, src, dest, src_time, dest_time } = req.body;
   let bus;
   try {
-    bus = createNewBus(name, bus_no, src, dest, bus_time);
+    bus = createNewBus(name, bus_no, src, dest, src_time, dest_time);
     await bus.save();
   } catch (err) {
     const error = new HttpError(
