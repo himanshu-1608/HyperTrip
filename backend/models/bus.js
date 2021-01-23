@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 const busSchema = new Schema({
   name: { type: String, required: true },
   bus_no: { type: String, required: true },
+  fare: { type: Number, required: true },
   src: { type: String, required: true },
   dest: { type: String, required: true },
   src_time: { type: Date, required: true },
