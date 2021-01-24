@@ -75,7 +75,10 @@ const removeBusAndTickets = async (busId) => {
 
 const findTicketById = async (ticketId) => {
   let ticket;
-  ticket = await Ticket.findById(ticketId);
+  ticket = await Ticket.findById(ticketId)
+    .populate('bus')
+    .populate('passenger')
+    .exec();
   if (!ticket) {
     throw new HttpError('Ticket Not Found', 404);
   }

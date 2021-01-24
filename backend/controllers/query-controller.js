@@ -9,7 +9,7 @@ const getTicketInfo = async (req, res, next) => {
   } catch (err) {
     return next(err);
   }
-  res.status(200).json({ ticket: ticket });
+  res.status(200).json({ ticket: ticket.toObject({ getters: true }) });
 };
 
 const getBuses = async (req, res, next) => {

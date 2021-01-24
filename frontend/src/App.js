@@ -9,6 +9,7 @@ import './App.css';
 import SideNavigation from './components/SideNavigation/SideNavigation';
 import SearchBus from './components/SearchBus/SearchBus';
 import BusDetail from './components/BusDetail/BusDetail';
+import TicketStatus from './components/TicketStatus/TicketStatus';
 
 const App = () => {
   return (
@@ -21,7 +22,7 @@ const App = () => {
               <SearchBus />
             </Route>
             <Route path='/ticketStatus' exact>
-              <SearchBus />
+              <TicketStatus />
             </Route>
             <Route path='/buses/:busId' exact>
               <BusDetail />
