@@ -8,7 +8,7 @@ const BusItem = (props) => {
     return (
     <div>
         <Link style={{textDecoration: 'none'}} to={`/buses/${props.id}`}>
-            <div className="bus-item">
+            <div className="bus-item" style={{display: 'flex'}}>
                 <Container style={{textAlign: "center", padding: '10px'}} maxWidth="sm">
                     Name of Bus: {props.bus_name}<br/>
                     Bus Number: {props.bus_no} <br />
@@ -27,6 +27,7 @@ const BusItem = (props) => {
                     {props.dest_time.getMinutes()}<br />
                     Tickets left: {40 - props.bus_tickets.length}
                 </Container>
+                <img style={{position: 'relative', top: '0px', left: '00px', padding: '20px'}} src={`https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_wE4sZx8MTgOpbMKRj7oY4LG2tXhnZkW0Cg&usqp=CAU`} />
             </div>
             <Container style={{textAlign: "center", display: 'flex'}} maxWidth="sm">
                 <div style={{height: '100px', width: '100px', borderRadius: '100px', backgroundColor: 'black'}}/>
