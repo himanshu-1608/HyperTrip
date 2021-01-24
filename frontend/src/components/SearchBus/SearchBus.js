@@ -47,10 +47,10 @@ const SearchBus = (props) => {
   useEffect(()=> {
     if(buses && buses.length>0) {
       setBusList(buses.map((object, index) => {
-        return <BusItem key={index} bus_no={object.bus_no} bus_name={object.name} bus_time={new Date(Date.parse(object.bus_time))} bus_src={object.src} bus_dest={object.dest} id={object._id} bus_tickets={object.tickets}/>
+        return <BusItem key={index} bus_no={object.bus_no} bus_name={object.name} bus_fare={object.fare} src_time={new Date(Date.parse(object.src_time))} bus_src={object.src} dest_time={new Date(Date.parse(object.dest_time))} bus_dest={object.dest} id={object._id} bus_tickets={object.tickets}/>
       }));
     }
-  },[buses]);
+  }, [buses]);
 
   const changeSrcHandler = (event) => {
     setSrc(event.target.value);

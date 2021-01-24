@@ -12,14 +12,19 @@ const BusItem = (props) => {
                 <Container style={{textAlign: "center", padding: '10px'}} maxWidth="sm">
                     Name of Bus: {props.bus_name}<br/>
                     Bus Number: {props.bus_no} <br />
+                    Bus Fare: {props.bus_fare} <br />
                     Departs from: {props.bus_src} <br />
-                    Departure Date: {props.bus_time.getDate()}/
-                    {''+props.bus_time.getMonth()+1}/
-                    {props.bus_time.getFullYear()} <br />
-                    Depareture Time: {props.bus_time.getHours()}:
-                    {props.bus_time.getMinutes()}:
-                    {props.bus_time.getSeconds()} <br />
-                    Arrival to: {props.bus_dest} <br />
+                    Departure Date: {props.src_time.getDate()}/
+                    {''+props.src_time.getMonth()+1}/
+                    {props.src_time.getFullYear()} <br />
+                    Departure Time: {props.src_time.getHours()}:
+                    {props.src_time.getMinutes()} <br />
+                    Arrives to: {props.bus_dest} <br />
+                    Arrival Date: {props.dest_time.getDate()}/
+                    {''+props.dest_time.getMonth()+1}/
+                    {props.dest_time.getFullYear()} <br />
+                    Arrival Time: {props.dest_time.getHours()}:
+                    {props.dest_time.getMinutes()}<br />
                     Tickets left: {40 - props.bus_tickets.length}
                 </Container>
             </div>
