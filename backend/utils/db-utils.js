@@ -1,6 +1,7 @@
 const Admin = require('../models/admin');
 const Bus = require('../models/bus');
-const Ticket = require('../models/bus');
+const Ticket = require('../models/ticket');
+const Passenger = require('../models/passenger');
 const HttpError = require('../models/http-error');
 
 const createNewAdmin = (email, password) => {
@@ -48,7 +49,7 @@ const createNewBus = (name, bus_no, fare, src, dest, src_time, dest_time) => {
 
 const findBusById = async (busId) => {
   let bus;
-  bus = await Bus.findById(busId);
+  bus = await Bus.findById(busId).populate('tickets');
   if (!bus) {
     throw new HttpError('Could not find the bus for the provided id.', 404);
   }
@@ -81,6 +82,26 @@ const findTicketById = async (ticketId) => {
   return ticket;
 };
 
+const insertManyPassenger = async (passengers) => {
+  let insertedIds = await Passenger.insertMany(passengers);
+  return insertedIds;
+};
+
+const createTicket = (bus, seat_no, passenger) => {
+  let ticket;
+  ticket = new Ticket({ bus, seat_no, passenger });
+  return ticket;
+};
+const insertManyTickets = async (tickets) => {
+  let insertedIds = await Ticket.insertMany(tickets);
+  return insertedIds;
+};
+
+const insertTicketsIntoBus = async (bus, tickets) => {
+  bus.tickets.push({ $each: tickets });
+  await bus.save();
+};
+
 exports.createNewAdmin = createNewAdmin;
 exports.findAdminById = findAdminById;
 exports.findAdminByEmail = findAdminByEmail;
@@ -89,3 +110,7 @@ exports.findBusById = findBusById;
 exports.findBuses = findBuses;
 exports.removeBusAndTickets = removeBusAndTickets;
 exports.findTicketById = findTicketById;
+exports.insertManyPassenger = insertManyPassenger;
+exports.createTicket = createTicket;
+exports.insertManyTickets = insertManyTickets;
+exports.insertTicketsIntoBus = insertTicketsIntoBus;
