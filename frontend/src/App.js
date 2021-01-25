@@ -13,6 +13,7 @@ import SearchBus from './components/SearchBus/SearchBus';
 import BusDetail from './components/BusDetail/BusDetail';
 import TicketStatus from './components/TicketStatus/TicketStatus';
 import AdminBusDetail from './components/AdminBusDetail/AdminBusDetail';
+import AdminAddBus from './components/AdminAddBus/AdminAddBus';
 import AuthContext from './context/auth-context';
 
 const App = () => {
@@ -70,7 +71,7 @@ const App = () => {
         <SearchBus />
       </Route>
       <Route path="/addBus" exact>
-        <div>add bus</div>
+        <AdminAddBus />
       </Route>
       <Route path="/buses/:busId" exact>
         <AdminBusDetail />
