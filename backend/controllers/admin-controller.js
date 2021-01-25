@@ -14,7 +14,7 @@ const addBus = async (req, res, next) => {
     );
     return next(error);
   }
-  res.status(201).json({ bus: bus.toObject({ getters: true }) });
+  res.json({ created: true });
 };
 
 const resetBus = async (req, res, next) => {
