@@ -6,8 +6,10 @@ const httpReq = async (url, method='GET', headers={}, body={}) => {
     try {
         if(method==='GET') {
             response = await fetch(BASE_URL+url,{method: method,headers: headers});
-        } else {
+        } else if(method==='POST'){
             response = await fetch(BASE_URL+url,{method: method,headers: headers,body: body});
+        } else if(method==='DELETE') {
+            response = await fetch(BASE_URL+url,{method: method,headers: headers});
         }
         if(response.ok) {
             responseData = await response.json();

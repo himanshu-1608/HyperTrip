@@ -1,19 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Container from '@material-ui/core/Container';
-import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import {useParams} from 'react-router-dom';
 import httpReq from '../../utils/http-req';
 
+import AuthContext from '../../context/auth-context';
 import './AdminBusDetail.css';
 
 const AdminBusDetail = (props) => {
     
+    const auth = useContext(AuthContext);
     const busId = useParams().busId;
     const [busData, setBusData] = useState([]);
     const [seatsArr, setSeatsArr] = useState();
     const [seatInfo, setSeatInfo] = useState();
+    const [busStatus,setBusStatus] = useState();
 
     const removeTicket = () => {
         setSeatInfo();
@@ -83,12 +85,30 @@ const AdminBusDetail = (props) => {
         );
     }
 
+    const removeBus = async () => {
+        const [isHttpError, responseData] = await httpReq(`/admin/resetBus/${busId}`,
+        'DELETE',
+        { authorization: `Bearer ${auth.token}`});
+        if(!isHttpError) {
+            setBusStatus(
+                <div style={{margin: '10px'}}>
+                    <span style={{borderRadius: '10px', backgroundColor: 'lightgreen', border: '5px solid green', padding: '5px', margin: '10px'}}>
+                        Done
+                    </span>
+                </div>
+            );
+            setSeatsArr(seatsArr);
+        } 
+    }
+
     return (
         <div className="admin-bus-detail" maxWidth="sm">
             <Container style={{textAlign: 'center', marginTop: '35px'}} >
                 <Typography variant="h4"  gutterBottom>
                     Admin View
                 </Typography>
+                <Button onClick={removeBus} variant="contained" style={{margin: '10px auto', border: '4px solid purple', backgroundColor: 'red'}}>Remove Bus Seats</Button>
+                {busStatus}
             </Container>
             {seatsArr}
             <Container style={{textAlign: 'center', marginTop: '15px'}} >
