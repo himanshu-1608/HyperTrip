@@ -1,5 +1,5 @@
 const HttpError = require('../models/http-error');
-const { createNewBus, removeBusAndTickets } = require('../utils/db-utils');
+const { createNewBus, removeTicketsFromBus } = require('../utils/db-utils');
 
 const addBus = async (req, res, next) => {
   const { name, bus_no, fare, src, dest, src_time, dest_time } = req.body;
@@ -19,8 +19,9 @@ const addBus = async (req, res, next) => {
 
 const resetBus = async (req, res, next) => {
   const busId = req.params.busId;
+  console.log(busId);
   try {
-    await removeBusAndTickets(busId);
+    await removeTicketsFromBus(busId);
   } catch (err) {
     if (err.code === 404) {
       return next(err);

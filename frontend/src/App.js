@@ -75,6 +75,7 @@ const App = () => {
       <Route path="/buses/:busId" exact>
         <AdminBusDetail />
       </Route>
+      <Redirect to="/search" />
     </Switch>
   );
   

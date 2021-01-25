@@ -75,12 +75,13 @@ const findBuses = async (src, dest) => {
   return buses;
 };
 
-const removeBusAndTickets = async (busId) => {
+const removeTicketsFromBus = async (busId) => {
   let bus;
   bus = await Bus.findById(busId);
   if (!bus) throw new HttpError('Could not find Bus', 404);
   await Ticket.deleteMany({ _id: { $in: bus.tickets } });
-  await bus.remove();
+  bus.tickets = [];
+  await bus.save();
 };
 
 const findTicketById = async (ticketId) => {
@@ -121,7 +122,7 @@ exports.findAdminByEmail = findAdminByEmail;
 exports.createNewBus = createNewBus;
 exports.findBusById = findBusById;
 exports.findBuses = findBuses;
-exports.removeBusAndTickets = removeBusAndTickets;
+exports.removeTicketsFromBus = removeTicketsFromBus;
 exports.findTicketById = findTicketById;
 exports.insertManyPassenger = insertManyPassenger;
 exports.createTicket = createTicket;
