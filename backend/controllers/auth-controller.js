@@ -49,7 +49,7 @@ const login = async (req, res, next) => {
 
   res.status(200).json({
     adminId: existingAdmin.id,
-    email: existingAdmin.email,
+    adminEmail: existingAdmin.email,
     token: token,
   });
 };

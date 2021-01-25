@@ -49,7 +49,17 @@ const createNewBus = (name, bus_no, fare, src, dest, src_time, dest_time) => {
 
 const findBusById = async (busId) => {
   let bus;
-  bus = await Bus.findById(busId).populate('tickets');
+  bus = await Bus.findById(busId)
+    .populate('tickets')
+    .populate({
+      path: 'tickets',
+      populate: { path: 'passenger' },
+    })
+    .populate({
+      path: 'tickets',
+      populate: { path: 'bus' },
+    })
+    .exec();
   if (!bus) {
     throw new HttpError('Could not find the bus for the provided id.', 404);
   }
