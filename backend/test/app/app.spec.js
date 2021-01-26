@@ -1,10 +1,9 @@
 const assert = require('assert');
 const mongoose = require('mongoose');
-const { v4: uuidv4 } = require('uuid');
-const expect = require('chai').expect;
-const should = require('chai').should();
+const request = require('supertest');
+const { response } = require('../../app');
+const app = require('../../app');
 const { mongoDevUrl } = require('./../../config');
-const { signup, login } = require('../../controllers/auth-controller');
 
 mongoose
   .connect(mongoDevUrl, {
@@ -17,26 +16,12 @@ mongoose
   });
 
 const next = (error) => {
-  // console.log('Error in next:', error);
+  console.log('Error in next:', error);
 };
 
-const commonReq = {
-  body: {
-    email: 'himanshu.yadav@hyperverge.co',
-    password: 'Test@123',
-  },
-};
-
-describe('Test for controllers/auth-controller.js:', () => {
-  let req, res;
-  beforeEach('req and res should be some fresh objects', () => {
-    req = {
-      body: {
-        email: `${uuidv4()}@gmail.com`,
-        password: 'Test@123',
-      },
-    };
-
+describe('Integration Tests: App wide tests for app.js(working of app+routes):', () => {
+  let res;
+  beforeEach('res should be some fresh object', () => {
     res = {
       statusCode: 0,
       body: {},
@@ -51,35 +36,17 @@ describe('Test for controllers/auth-controller.js:', () => {
     };
   });
 
-  it('should signup a local request(not http)', () => {
-    signup(req, res, next).then((done) => {
-      assert.ok(res.statusCode === 201);
-      assert.ok(res.userId && res.email.length > 0 && res.token.length > 0);
-      done();
-    });
-  });
-
-  it('should signup a dummy user to test in login part', () => {
-    signup(commonReq, res, next).then((done) => {
-      assert.ok(res.statusCode === 201);
-      assert.ok(res.userId && res.email.length > 0 && res.token.length > 0);
-      done();
-    });
-  });
-
-  it(`shouldn't login local request coz uuid will be unique`, () => {
-    login(req, res, next).then((done) => {
-      assert.ok(res.statusCode === 403);
-      assert.ok(!res.email && !res.token);
-      done();
-    });
-  });
-
-  it(`should login the common request`, () => {
-    login(commonReq, res, next).then((done) => {
-      assert.ok(res.statusCode === 200);
-      assert.ok(res.userId && res.email.length > 0 && res.token.length > 0);
-      done();
-    });
-  });
+  //   it('POST /api/auth/signup', function (done) {
+  //     request(app)
+  //       .post('/api/auth/signup')
+  //       .send({
+  //         email: `${uuidv4()}@gmail.com`,
+  //         password: 'Test@123',
+  //       })
+  //       .set('Content-type', 'application/json')
+  //       .then((res) => {
+  //         console.log(res);
+  //         assert(res.statusCode, 201);
+  //       });
+  //   });
 });
