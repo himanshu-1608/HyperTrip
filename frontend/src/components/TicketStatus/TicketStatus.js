@@ -32,27 +32,44 @@ const TicketStatus = (props) => {
             let dest_time = new Date(Date.parse(ticket.bus.dest_time));
             ticket = {...ticket, src_time: src_time, dest_time: dest_time};
             setUserCard(
-                <Container style={{boxShadow: '0px 0px 20px #888888', backgroundColor: '#e6e6e6', padding: '20px', textAlign: 'center', width: '500px', marginBottom: '50px'}}>
-                    Ticket ID: {ticket.id} <br/>
-                    Bus Name: {ticket.bus.name} <br/>
-                    Bus Number: {ticket.bus.bus_no} <br/>
-                    Ticket Fare: {ticket.bus.fare} <br/>
-                    Seat Number: {ticket.seat_no} <br/>
-                    Passenger Name: {ticket.passenger.name} <br/>
-                    Passenger Age: {ticket.passenger.age} <br/>
-                    Source: {ticket.bus.src} <br/>
-                    Departure Date: {ticket.src_time.getDate()}/
-                    {ticket.src_time.getMonth()+1}/
-                    {ticket.src_time.getFullYear()} <br/>
-                    Departure Time: {ticket.src_time.getHours()}:
-                    {ticket.src_time.getMinutes()}<br/>
-                    Destination: {ticket.bus.dest} <br/>
-                    Arrival Date: {ticket.dest_time.getDate()}/
-                    {ticket.dest_time.getMonth()+1}/
-                    {ticket.dest_time.getFullYear()} <br/>
-                    Arrival Time: {ticket.dest_time.getHours()}:
-                    {ticket.dest_time.getMinutes()}<br/>
-                </Container>
+                <React.Fragment>
+                <Container style={{boxShadow: '0px 0px 20px #888888', backgroundColor: '#e6e6e6', padding: '20px', textAlign: 'center', width: '400px', marginBottom: '50px'}}>
+                <div style={{display: 'flex'}}>
+                    <div style={{borderRadius: '10px', padding: '10px',margin: 'auto', width: '150px', backgroundColor: '#00004d', color: 'white', float: 'left'}}>Hyper Book<br/>Ticketing System</div>
+                    <div style={{borderRadius: '10px', padding: '10px',margin: 'auto', width: '150px', backgroundColor: '#00004d', color: 'white', float: 'right'}}>Contact for Query<br/>+919876543210 </div>
+                </div>
+                <div style={{border: '1px solid black', margin: '10px 50px'}}>
+                <strong>Ticket ID</strong> {ticket.id} <br/>
+                </div>
+                <div style={{border: '1px solid black', margin: '10px 50px'}}>
+                    <strong>Bus Details</strong><br />
+                    <strong>Bus Name:</strong> {ticket.bus.name} <br/>
+                    <strong>Bus Number:</strong> {ticket.bus.bus_no} <br/>
+                    <strong>Ticket Fare:</strong> {ticket.bus.fare} <br/>
+                    <strong>Seat Number:</strong> {ticket.seat_no} <br/>
+                </div>
+                <div style={{border: '1px solid black', margin: '10px 50px'}}>
+                    <strong>Passenger Details</strong><br />
+                    <strong>Passenger Name:</strong> {ticket.passenger.name} <br/>
+                    <strong>Passenger Age:</strong> {ticket.passenger.age} <br/>
+                </div>
+                <div style={{border: '1px solid black', margin: '10px 50px'}}>
+                    <strong>Journey Details</strong><br />
+                    <strong>Source:</strong> {ticket.bus.src} <br/>
+                    <strong>Departure Date:</strong> {ticket.src_time.getDate()}/
+                        {ticket.src_time.getMonth()+1}/
+                        {ticket.src_time.getFullYear()} <br/>
+                    <strong>Departure Time:</strong> {ticket.src_time.getHours()}:
+                        {ticket.src_time.getMinutes()}<br/>
+                    <strong>Destination:</strong> {ticket.bus.dest} <br/>
+                    <strong>Arrival Date:</strong> {ticket.dest_time.getDate()}/
+                {ticket.dest_time.getMonth()+1}/
+                {ticket.dest_time.getFullYear()} <br/>
+                    <strong>Arrival Time:</strong> {ticket.dest_time.getHours()}:
+                {ticket.dest_time.getMinutes()}<br/>
+                </div>
+            </Container>
+            </React.Fragment>
             );
         } else {
             setUserCard(

@@ -14,12 +14,11 @@ const addBus = async (req, res, next) => {
     );
     return next(error);
   }
-  res.json({ created: true });
+  res.status(201).json({ created: true });
 };
 
 const resetBus = async (req, res, next) => {
   const busId = req.params.busId;
-  console.log(busId);
   try {
     await removeTicketsFromBus(busId);
   } catch (err) {
