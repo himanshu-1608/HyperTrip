@@ -1,7 +1,15 @@
+const { validationResult } = require('express-validator');
 const HttpError = require('../models/http-error');
 const { createNewBus, removeTicketsFromBus } = require('../utils/db-utils');
 
 const addBus = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return next(
+      new HttpError('Invalid inputs passed, please check your data.', 422)
+    );
+  }
+
   const { name, bus_no, fare, src, dest, src_time, dest_time } = req.body;
   let bus;
   try {

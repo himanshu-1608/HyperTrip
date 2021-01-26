@@ -81,7 +81,7 @@ describe('Unit Tests: Test for controllers/admin-controller.js:', () => {
 
   it(`should remove the bus tickets`, function (done) {
     let req = {
-      params: { busId: '600fa30468a4d258cc05f88c' },
+      params: { busId: '600fbeafe8a96b4de46797b0' },
     };
     resetBus(req, res, next)
       .then(function () {

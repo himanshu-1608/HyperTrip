@@ -1,3 +1,4 @@
+const { validationResult } = require('express-validator');
 const { findAdminByEmail, createNewAdmin } = require('../utils/db-utils');
 const {
   hashPassword,
@@ -7,6 +8,13 @@ const {
 const HttpError = require('../models/http-error');
 
 const signup = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return next(
+      new HttpError('Invalid inputs passed, please check your data.', 422)
+    );
+  }
+
   const { email, password } = req.body;
   let existingAdmin, hashedPassword, createdAdmin, token;
   try {
@@ -31,6 +39,13 @@ const signup = async (req, res, next) => {
 };
 
 const login = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return next(
+      new HttpError('Invalid inputs passed, please check your data.', 422)
+    );
+  }
+
   const { email, password } = req.body;
 
   let existingAdmin, isValidPassword, token;
