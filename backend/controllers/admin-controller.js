@@ -2,6 +2,7 @@ const HttpError = require('../models/http-error');
 const { createNewBus, removeTicketsFromBus } = require('../utils/db-utils');
 
 const addBus = async (req, res, next) => {
+  console.log(req.body)
   const { name, bus_no, fare, src, dest, src_time, dest_time } = req.body;
   let bus;
   try {

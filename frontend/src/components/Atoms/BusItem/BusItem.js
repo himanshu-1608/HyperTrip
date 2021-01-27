@@ -29,10 +29,6 @@ const BusItem = (props) => {
                 </Container>
                 <img style={{position: 'relative', top: '0px', left: '00px', padding: '20px'}} src={`https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_wE4sZx8MTgOpbMKRj7oY4LG2tXhnZkW0Cg&usqp=CAU`} />
             </div>
-            <Container style={{textAlign: "center", display: 'flex'}} maxWidth="sm">
-                <div style={{height: '100px', width: '100px', borderRadius: '100px', backgroundColor: 'black'}}/>
-                <div style={{marginLeft: '350px', height: '100px', width: '100px', borderRadius: '100px', backgroundColor: 'black'}}/>
-            </Container>
         </Link>
     </div>
     );

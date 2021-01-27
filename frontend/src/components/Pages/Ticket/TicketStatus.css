@@ -1,0 +1,9 @@
+.ticket-status {
+    height: 100vh;
+    color: darkblue;
+    width: calc(100vw - 300px);
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }

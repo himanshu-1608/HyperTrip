@@ -1,0 +1,17 @@
+.search-bus {
+  height: 100vh;
+  width: calc(100vw - 300px);
+  color: darkblue;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow-y: scroll;
+}
+
+.search-field {
+  margin: 5 0px 0px;
+}
+
+.location-wrapper {
+  margin: 50px 70px 50px 200px;
+}

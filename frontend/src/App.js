@@ -7,13 +7,13 @@ import {
 } from 'react-router-dom';
 
 import './App.css';
-import Auth from './components/Auth/Auth';
-import SideNavigation from './components/SideNavigation/SideNavigation';
-import SearchBus from './components/SearchBus/SearchBus';
-import BusDetail from './components/BusDetail/BusDetail';
-import TicketStatus from './components/TicketStatus/TicketStatus';
-import AdminBusDetail from './components/AdminBusDetail/AdminBusDetail';
-import AdminAddBus from './components/AdminAddBus/AdminAddBus';
+import Auth from './components/Pages/Auth/Auth';
+import SideNavigation from './components/Organims/SideNavigation/SideNavigation';
+import SearchBus from './components/Pages/Search/SearchBus';
+import BusDetail from './components/Organims/BusDetail/BusDetail';
+import TicketStatus from './components/Pages/Ticket/TicketStatus';
+import AdminBusDetail from './components/Organims/AdminBusDetail/AdminBusDetail';
+import AdminAddBus from './components/Pages/Admin/AdminAddBus';
 import AuthContext from './context/auth-context';
 
 const App = () => {

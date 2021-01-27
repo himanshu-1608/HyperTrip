@@ -3,9 +3,9 @@ import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import {useParams} from 'react-router-dom';
-import httpReq from '../../utils/http-req';
+import httpReq from '../../../utils/http-req';
 
-import AuthContext from '../../context/auth-context';
+import AuthContext from '../../../context/auth-context';
 import './AdminBusDetail.css';
 
 const AdminBusDetail = (props) => {

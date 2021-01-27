@@ -1,0 +1,60 @@
+.side-navigation {
+  height: 100vh;
+  width: 300px;
+  background-color: #cfcfcf;
+}
+
+.nav-header {
+  height: 100px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 50px;
+  align-items: center;
+  color: #000000;
+  font-family: 'Hanalei', cursive;
+}
+.nav-links {
+  height: fit-content;
+  width: 100%;
+  padding: 150px 0px;
+  display: flex;
+  flex-direction: column;
+}
+
+.NavLink {
+  color: #707070;
+  height: 50px;
+  margin-bottom: 5px;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 20px;
+  font-weight: bolder;
+}
+
+.active-nav {
+  font-weight: bolder;
+  background-color: #b3b3b3;
+  border-right: solid 3px #494949;
+  color: rgb(221, 221, 221);
+}
+.NavLink:hover {
+  font-weight: bolder;
+  color: rgb(221, 221, 221);
+  background-color: #b3b3b3;
+  border-right: solid 3px #494949;
+  animation: nav-animation 0.3s ease-in-out;
+}
+@keyframes nav-animation {
+  from {
+    border: none;
+    background-color: #cfcfcf;
+  }
+  to {
+    background-color: #b3b3b3;
+    border-right: solid 3px #494949;
+  }
+}
